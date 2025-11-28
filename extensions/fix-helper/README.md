@@ -1,4 +1,4 @@
-# 💸 FIX Parser for Raycast
+# 💸 FIX Helper for Raycast
 
 A powerful Financial Information eXchange (FIX) protocol parser. Quickly analyze single messages or entire logs with ease.
 
