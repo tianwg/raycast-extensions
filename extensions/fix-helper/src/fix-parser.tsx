@@ -17,7 +17,7 @@ import { useState, useEffect } from "react";
 import { FIX_SPECS } from "./specs";
 import { getOnixsUrl, formatFixTimestamp, getTagIcon, getTagColor, getFixMessageSummary } from "./utils";
 import { TAGS, HEADER_TAGS, TRAILER_TAGS, MSG_TYPE } from "./constants";
-import { TagDetail, TagItem } from "./fix-search-tags";
+import { TagDetail, TagItem } from "./TagDetail";
 
 interface ParsedField {
   tag: number;
@@ -100,7 +100,7 @@ function VersionPicker({ currentVersion, onSelect }: { currentVersion: string; o
   const versions = Object.keys(FIX_SPECS).sort();
 
   return (
-    <List navigationTitle="Select Default FIX Version">
+    <List navigationTitle="Select Default FIX Version" isLoading={versions.length === 0}>
       {versions.map((v) => (
         <List.Item
           key={v}
@@ -252,6 +252,7 @@ function ParsedMessageView({
           <List.Dropdown.Item title="Trailer" value="trailer" />
         </List.Dropdown>
       }
+      isLoading={fields.length === 0}
     >
       {summary && (
         <List.Section title="Summary">
@@ -340,6 +341,7 @@ function MultiMessageView({ messages, defaultVersion }: { messages: string[]; de
           })}
         </List.Dropdown>
       }
+      isLoading={messages.length === 0}
     >
       {filteredMessages.map((msg, index) => {
         const { fields, version: msgVersion } = parseFixMessage(msg, defaultVersion, preferences.customDelimiter);
