@@ -39,7 +39,7 @@ A powerful Financial Information eXchange (FIX) protocol parser. Quickly analyze
 
 - **Default Version**: Set your preferred FIX version (e.g., FIX 4.2, FIX 5.0).
 - **Show Icons**: Toggle visual icons on/off for a cleaner or richer view.
-- **Custom Delimiter**: Specify a custom string (e.g., `||`) to prioritize as a delimiter for unique log formats. for unique log formats.
+- **Custom Delimiter**: Specify a custom string (e.g., `||`) to prioritize as a delimiter for unique log formats.
 
 ## 📜 License
 MIT
