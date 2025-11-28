@@ -31,6 +31,8 @@ interface Preferences {
   defaultVersion: string;
   showIcons: boolean;
   customDelimiter?: string;
+  autoParseClipboard: boolean;
+  autoParseSelection: boolean;
 }
 
 function parseFixMessage(
@@ -491,55 +493,59 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.FixPar
   useEffect(() => {
     async function checkInputSources() {
       // 1. Check Selected Text
-      try {
-        const selectedText = await getSelectedText();
-        if (selectedText) {
-          const messages = splitFixMessages(selectedText, preferences.customDelimiter);
-          if (messages.length > 1) {
-            push(<MultiMessageView messages={messages} defaultVersion={defaultVersion} />);
-            showToast({ style: Toast.Style.Success, title: `Found ${messages.length} messages in Selection` });
-            return;
-          } else if (messages.length === 1) {
-            push(
-              <ParsedMessageView
-                message={messages[0]}
-                defaultVersion={defaultVersion}
-                onDefaultVersionChange={setDefaultVersion}
-                source="Selection"
-              />,
-            );
-            showToast({ style: Toast.Style.Success, title: "Auto-parsed from Selection" });
-            return;
+      if (preferences.autoParseSelection) {
+        try {
+          const selectedText = await getSelectedText();
+          if (selectedText) {
+            const messages = splitFixMessages(selectedText, preferences.customDelimiter);
+            if (messages.length > 1) {
+              push(<MultiMessageView messages={messages} defaultVersion={defaultVersion} />);
+              showToast({ style: Toast.Style.Success, title: `Found ${messages.length} messages in Selection` });
+              return;
+            } else if (messages.length === 1) {
+              push(
+                <ParsedMessageView
+                  message={messages[0]}
+                  defaultVersion={defaultVersion}
+                  onDefaultVersionChange={setDefaultVersion}
+                  source="Selection"
+                />,
+              );
+              showToast({ style: Toast.Style.Success, title: "Auto-parsed from Selection" });
+              return;
+            }
           }
+        } catch {
+          // Ignore
         }
-      } catch {
-        // Ignore
       }
 
       // 2. Check Clipboard
-      try {
-        const clipboardText = await Clipboard.readText();
-        if (clipboardText) {
-          const messages = splitFixMessages(clipboardText, preferences.customDelimiter);
-          if (messages.length > 1) {
-            push(<MultiMessageView messages={messages} defaultVersion={defaultVersion} />);
-            showToast({ style: Toast.Style.Success, title: `Found ${messages.length} messages in Clipboard` });
-            return;
-          } else if (messages.length === 1) {
-            push(
-              <ParsedMessageView
-                message={messages[0]}
-                defaultVersion={defaultVersion}
-                onDefaultVersionChange={setDefaultVersion}
-                source="Clipboard"
-              />,
-            );
-            showToast({ style: Toast.Style.Success, title: "Auto-parsed from Clipboard" });
-            return;
+      if (preferences.autoParseClipboard) {
+        try {
+          const clipboardText = await Clipboard.readText();
+          if (clipboardText) {
+            const messages = splitFixMessages(clipboardText, preferences.customDelimiter);
+            if (messages.length > 1) {
+              push(<MultiMessageView messages={messages} defaultVersion={defaultVersion} />);
+              showToast({ style: Toast.Style.Success, title: `Found ${messages.length} messages in Clipboard` });
+              return;
+            } else if (messages.length === 1) {
+              push(
+                <ParsedMessageView
+                  message={messages[0]}
+                  defaultVersion={defaultVersion}
+                  onDefaultVersionChange={setDefaultVersion}
+                  source="Clipboard"
+                />,
+              );
+              showToast({ style: Toast.Style.Success, title: "Auto-parsed from Clipboard" });
+              return;
+            }
           }
+        } catch {
+          // Ignore
         }
-      } catch {
-        // Ignore
       }
     }
     checkInputSources();

@@ -39,8 +39,8 @@
   "preferences": [
     {
       "name": "defaultVersion",
-      "title": "Default FIX Version",
-      "description": "The FIX version to use if the message does not contain a BeginString (Tag 8).",
+      "title": "Default Version",
+      "description": "Fallback version when BeginString (Tag 8) is missing.",
       "type": "dropdown",
       "required": false,
       "default": "FIX.4.2",
@@ -80,21 +80,39 @@
       ]
     },
     {
-      "name": "showIcons",
-      "title": "Show Icons",
-      "description": "Show icons for tags and values in the list view.",
-      "type": "checkbox",
-      "required": false,
-      "default": true,
-      "label": "Enable Icons"
-    },
-    {
       "name": "customDelimiter",
       "title": "Custom Delimiter",
-      "description": "Specify a custom delimiter string (e.g., | or ||). If set, this will be prioritized.",
+      "description": "Prioritized delimiter. Falls back to standard ones (| ^ SOH) if not found.",
       "type": "textfield",
       "required": false,
       "placeholder": "|"
+    },
+    {
+      "name": "autoParseClipboard",
+      "title": "Auto-parse Clipboard",
+      "description": "Parse clipboard content on launch.",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "label": "Enabled"
+    },
+    {
+      "name": "autoParseSelection",
+      "title": "Auto-parse Selection",
+      "description": "Parse selected text on launch.",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "label": "Enabled"
+    },
+    {
+      "name": "showIcons",
+      "title": "Show Icons",
+      "description": "Display visual icons for tags and values.",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "label": "Enabled"
     }
   ],
   "dependencies": {
