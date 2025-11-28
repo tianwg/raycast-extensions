@@ -1,0 +1,120 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "fix-helper",
+  "title": "FIX Helper",
+  "description": "Quickly parse, analyze, and understand FIX messages with ease.",
+  "icon": "extension-icon.png",
+  "author": "tianwg",
+  "categories": [
+    "Developer Tools",
+    "Finance"
+  ],
+  "platforms": [
+    "macOS",
+    "Windows"
+  ],
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "fix-parser",
+      "title": "Parse FIX Messages",
+      "description": "Parse Financial Information eXchange (FIX) protocol messages.",
+      "mode": "view",
+      "arguments": [
+        {
+          "name": "message",
+          "placeholder": "FIX Messages",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "fix-search-tags",
+      "title": "Search FIX Tags",
+      "description": "Quickly search for FIX tags and view their details.",
+      "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "defaultVersion",
+      "title": "Default FIX Version",
+      "description": "The FIX version to use if the message does not contain a BeginString (Tag 8).",
+      "type": "dropdown",
+      "required": false,
+      "default": "FIX.4.2",
+      "data": [
+        {
+          "title": "FIX 4.0",
+          "value": "FIX.4.0"
+        },
+        {
+          "title": "FIX 4.1",
+          "value": "FIX.4.1"
+        },
+        {
+          "title": "FIX 4.2",
+          "value": "FIX.4.2"
+        },
+        {
+          "title": "FIX 4.3",
+          "value": "FIX.4.3"
+        },
+        {
+          "title": "FIX 4.4",
+          "value": "FIX.4.4"
+        },
+        {
+          "title": "FIX 5.0",
+          "value": "FIX.5.0"
+        },
+        {
+          "title": "FIX 5.0 SP1",
+          "value": "FIX.5.0SP1"
+        },
+        {
+          "title": "FIX 5.0 SP2",
+          "value": "FIX.5.0SP2"
+        }
+      ]
+    },
+    {
+      "name": "showIcons",
+      "title": "Show Icons",
+      "description": "Show icons for tags and values in the list view.",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "label": "Enable Icons"
+    },
+    {
+      "name": "customDelimiter",
+      "title": "Custom Delimiter",
+      "description": "Specify a custom delimiter string (e.g., | or ||). If set, this will be prioritized.",
+      "type": "textfield",
+      "required": false,
+      "placeholder": "|"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.103.8",
+    "@raycast/utils": "^1.17.0"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "^2.0.4",
+    "@types/node": "22.13.10",
+    "@types/react": "19.0.10",
+    "eslint": "^9.22.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  },
+  "scripts": {
+    "build": "ray build",
+    "dev": "ray develop",
+    "fix-lint": "ray lint --fix",
+    "lint": "ray lint",
+    "prepublishOnly": "echo \"\\n\\nIt seems like you are trying to publish the Raycast extension to npm.\\n\\nIf you did intend to publish it to npm, remove the \\`prepublishOnly\\` script and rerun \\`npm publish\\` again.\\nIf you wanted to publish it to the Raycast Store instead, use \\`npm run publish\\` instead.\\n\\n\" && exit 1",
+    "publish": "npx @raycast/api@latest publish"
+  }
+}
