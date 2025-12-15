@@ -27,14 +27,6 @@ interface ParsedField {
   type?: string;
 }
 
-interface Preferences {
-  defaultVersion: string;
-  showIcons: boolean;
-  customDelimiter?: string;
-  autoParseClipboard: boolean;
-  autoParseSelection: boolean;
-}
-
 function parseFixMessage(
   message: string,
   defaultVersion: string,
@@ -483,7 +475,7 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.FixPar
         <ParsedMessageView
           message={messages[0]}
           defaultVersion={defaultVersion}
-          onDefaultVersionChange={setDefaultVersion}
+          onDefaultVersionChange={(newValue) => setDefaultVersion(newValue as typeof defaultVersion)}
           source="Argument"
         />
       );
@@ -507,7 +499,7 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.FixPar
                 <ParsedMessageView
                   message={messages[0]}
                   defaultVersion={defaultVersion}
-                  onDefaultVersionChange={setDefaultVersion}
+                  onDefaultVersionChange={(newValue) => setDefaultVersion(newValue as typeof defaultVersion)}
                   source="Selection"
                 />,
               );
@@ -535,7 +527,7 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.FixPar
                 <ParsedMessageView
                   message={messages[0]}
                   defaultVersion={defaultVersion}
-                  onDefaultVersionChange={setDefaultVersion}
+                  onDefaultVersionChange={(newValue) => setDefaultVersion(newValue as typeof defaultVersion)}
                   source="Clipboard"
                 />,
               );
@@ -561,7 +553,7 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.FixPar
           <ParsedMessageView
             message={values.message}
             defaultVersion={defaultVersion}
-            onDefaultVersionChange={setDefaultVersion}
+            onDefaultVersionChange={(newValue) => setDefaultVersion(newValue as typeof defaultVersion)}
           />,
         );
       }
@@ -582,7 +574,7 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.FixPar
             <ParsedMessageView
               message={messages[0]}
               defaultVersion={defaultVersion}
-              onDefaultVersionChange={setDefaultVersion}
+              onDefaultVersionChange={(newValue) => setDefaultVersion(newValue as typeof defaultVersion)}
               source="Clipboard"
             />,
           );
@@ -614,7 +606,12 @@ export default function Command(props: LaunchProps<{ arguments: Arguments.FixPar
             title="Change FIX Version"
             icon={Icon.Gear}
             shortcut={{ modifiers: ["cmd", "shift"], key: "d" }}
-            target={<VersionPicker currentVersion={defaultVersion} onSelect={setDefaultVersion} />}
+            target={
+              <VersionPicker
+                currentVersion={defaultVersion}
+                onSelect={(newValue) => setDefaultVersion(newValue as typeof defaultVersion)}
+              />
+            }
           />
         </ActionPanel>
       }

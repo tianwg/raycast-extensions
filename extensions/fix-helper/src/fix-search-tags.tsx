@@ -2,11 +2,6 @@ import { Action, ActionPanel, List, Icon, getPreferenceValues } from "@raycast/a
 import { useState, useMemo } from "react";
 import { FIX_SPECS } from "./specs";
 
-interface Preferences {
-  defaultVersion: string;
-  showIcons: boolean;
-}
-
 import { TagDetail, TagItem } from "./TagDetail";
 import { getOnixsUrl, getTagIcon, getTagColor } from "./utils";
 
@@ -50,7 +45,11 @@ export default function Command() {
       onSearchTextChange={setSearchText}
       isLoading={tags.length === 0}
       searchBarAccessory={
-        <List.Dropdown tooltip="Select FIX Version" value={version} onChange={setVersion}>
+        <List.Dropdown
+          tooltip="Select FIX Version"
+          value={version}
+          onChange={(newValue) => setVersion(newValue as typeof version)}
+        >
           {versions.map((v) => (
             <List.Dropdown.Item key={v} title={v} value={v} />
           ))}
