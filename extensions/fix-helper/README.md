@@ -43,3 +43,19 @@ A powerful Financial Information eXchange (FIX) protocol parser. Quickly analyze
 
 ## 📜 License
 MIT
+
+## 👨‍💻 Development
+
+### Generating FIX Specifications
+The extension comes with pre-generated FIX specifications in `src/specs.ts`. If you need to regenerate them (e.g., to fetch updates or modify the parsing logic), use the provided script:
+
+```bash
+# Regenerate src/specs.ts
+npx ts-node scripts/generate_specs.ts
+```
+
+This script will:
+1.  Fetch the latest XML specifications from the QuickFIX repository.
+2.  Parse tags, types, and enums.
+3.  Apply overrides for better readability (e.g., MsgType descriptions).
+4.  Generate a strongly-typed TypeScript file at `src/specs.ts`.
